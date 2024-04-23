@@ -17,7 +17,7 @@ class _SecondPageState extends State<SecondPage> {
   List<String> listaDePalabras = [];
   late ScrollController _scrollController;
   int paginaActual = 1;
-
+  String url ='https://roscodrom5.ieti.site/';
   @override
   void initState() {
     super.initState();
@@ -60,7 +60,7 @@ class _SecondPageState extends State<SecondPage> {
                     itemCount: listaDePalabras.length, // Número de elementos en la lista
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(listaDePalabras[index]),
+                        title: Text(latin1.decode(listaDePalabras[index].runes.toList())),
                       );
                     },
                   ),
@@ -89,7 +89,7 @@ class _SecondPageState extends State<SecondPage> {
 
   Future<void> _handleNext() async {
     paginaActual+=1;
-    String url="http://192.168.0.103:3000/api/words/$selectedText?page=$paginaActual&size=20";
+    String url="https://roscodrom5.ieti.site/api/words/$selectedText?page=$paginaActual&size=20";
     String Dicc_recibido_bruto=await CURL(url);
     List<String> nuevaLista=[];
     var jsonList = json.decode(Dicc_recibido_bruto);
@@ -106,7 +106,7 @@ class _SecondPageState extends State<SecondPage> {
   Future<void> _handlePrevious() async {
     if (paginaActual!=1){
       paginaActual-=1;
-      String url="http://192.168.0.103:3000/api/words/$selectedText?page=$paginaActual&size=20";
+      String url="https://roscodrom5.ieti.site/api/words/$selectedText?page=$paginaActual&size=20";
       String Dicc_recibido_bruto=await CURL(url);
       List<String> nuevaLista=[];
       var jsonList = json.decode(Dicc_recibido_bruto);
@@ -140,7 +140,7 @@ class _SecondPageState extends State<SecondPage> {
       var servidorIP='192.168.0.103';
       var puerto='3000';
 
-      String url="http://192.168.0.103:3000/api/words/$newText?page=1&size=20";
+      String url="https://roscodrom5.ieti.site/api/words/$newText?page=1&size=20";
       String Dicc_recibido_bruto=await CURL(url);
       var jsonList = json.decode(Dicc_recibido_bruto);
       for (Map<String, dynamic> ele in jsonList){
